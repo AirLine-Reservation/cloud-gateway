@@ -1,0 +1,40 @@
+
+server:
+  port: 8989
+
+spring:
+  application:
+    name: GATEWAY-SERVICE
+
+  cloud:
+    gateway:
+      routes:
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/airLines/**
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/airPorts/**
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/flights/**
+        - id: flight-service
+          uri: lb://flight-service
+          predicates:
+            - Path=/flight/**
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    hostname: localhost
+
+
